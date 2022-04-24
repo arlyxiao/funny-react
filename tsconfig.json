@@ -6,7 +6,11 @@
     }
   },
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@server-runtime/*": ["server-runtime/*"]
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["jest"],

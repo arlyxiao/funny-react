@@ -24,9 +24,7 @@ function urlToFilePath(url: string) {
   let lastCharacter = url[url.length - 1];
   if (lastCharacter === "/") return `${url}index.tsx`;
   return `${url}.tsx`;
-};
-
-
+}
 
 export const handleRouteData = async ({
   url,
@@ -46,15 +44,12 @@ export const handleRouteData = async ({
   //    your ESM source code to be usable in Node.js! There is no bundling
   //    required, and provides efficient invalidation similar to HMR.
 
-  console.log(url)
-  console.log(urlToFilePath(url))
-  
   const [{ default: Page, loader }, { App }] = await Promise.all([
     vite.ssrLoadModule(`/src/pages${urlToFilePath(url)}`),
     vite.ssrLoadModule(`/src/app.tsx`),
   ]);
 
-  const props = loader ? await loader() : {}
+  const props = loader ? await loader() : {};
 
   return { template, Page, props, App };
 };

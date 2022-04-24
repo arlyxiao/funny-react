@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createElement, useState } from "react";
 import { AppRouteContext } from "./hooks/useLoaderData";
-import { routes } from "./routes"
-import { Page } from "../server-runtime/handleRouteData"
+import { routes } from "./routes";
+import { Page } from "@server-runtime/handleRouteData";
 
 type Props = {
-  page?: Page;
+  page: Page;
 };
 
 export const App = ({ page }: Props) => {

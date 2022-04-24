@@ -1,25 +1,23 @@
 import React from "react";
-import { Link } from "../components/Link";
-import { useLoaderData } from "../hooks/useLoaderData"
+import { Link } from "@src/components/Link";
+import { useLoaderData } from "@src/hooks/useLoaderData";
 
 export const loader = async () => {
   const promise = new Promise((resolve, reject) => {
-    setTimeout(function() {
+    setTimeout(function () {
       resolve({
-        message: 'hello'
+        message: "hello",
       });
-    }, 2000);
+    }, 500);
   });
 
-  return promise.then(function(data) {
-    return data
+  return promise.then(function (data) {
+    return data;
   });
-  
 };
 
-
 const Home = () => {
-  const { props } = useLoaderData()
+  const { props } = useLoaderData();
 
   return (
     <div onClick={() => console.log("hello")}>

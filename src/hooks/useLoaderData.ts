@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
-import { routes } from "../routes"
-import { Page } from "../../server-runtime/handleRouteData"
+import { routes } from "@src/routes";
+import { Page } from "@server-runtime/handleRouteData";
 
 const getServerData = async (to: string) => {
   let res = await fetch(`/data/${to}`);
