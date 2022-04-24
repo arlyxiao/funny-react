@@ -20,15 +20,29 @@ export const App = ({ page }: Props) => {
   );
 };
 
+export const ErrorPage = () => {
+  return (
+    <>
+      <p>Error 404</p>
+    </>
+  );
+};
+
 const hydrate = async () => {
+  const container = document.getElementById("app")!;
+
   let activeRoute = routes.find(
     (route) => route.path === window.location.pathname
   );
 
+  if (!activeRoute) {
+    hydrateRoot(container, <ErrorPage />);
+    return;
+  }
+
   let { default: component } = await activeRoute.getComponent();
 
-  const container = document.getElementById("app")!;
-  const root = hydrateRoot(
+  hydrateRoot(
     container,
     <App
       page={{
