@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { hydrateRoot } from "react-dom/client";
 import { createElement, useState } from "react";
 import { AppRouteContext } from "./hooks/useLoaderData";
 import { routes } from "./routes";
@@ -26,15 +27,16 @@ const hydrate = async () => {
 
   let { default: component } = await activeRoute.getComponent();
 
-  ReactDOM.hydrate(
+  const container = document.getElementById("app")!;
+  const root = hydrateRoot(
+    container,
     <App
       page={{
         props: (window as any)._APP_ROUTE_PROPS_,
         path: window.location.pathname,
         component,
       }}
-    />,
-    document.getElementById("app")
+    />
   );
 };
 
