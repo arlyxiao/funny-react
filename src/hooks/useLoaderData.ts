@@ -18,9 +18,10 @@ type ContextType = {
 export const AppRouteContext = createContext<ContextType>({} as any);
 
 export const useLoaderData = () => {
-  let { setActivePage } = useContext(AppRouteContext);
+  let { activePage, setActivePage } = useContext(AppRouteContext);
 
   return {
+    props: activePage.props,
     navigate: async (to: string) => {
       let [props, { default: component }] = await Promise.all([
         getServerData(to),
