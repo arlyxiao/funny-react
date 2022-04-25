@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode } from "react";
-import { useLoaderData } from "../hooks/useLoaderData";
+import { useLoaderData } from "@sample/hooks/useLoaderData";
 
 type Props = {
   to: string;

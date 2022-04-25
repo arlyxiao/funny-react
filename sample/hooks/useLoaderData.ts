@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
-import { routes } from "@src/routes";
-import { Page } from "@server-runtime/handleRouteData";
+import { routes } from "@sample/routes";
+import { RoutePage, PREFIX_LINK } from "mindoc-runtime/routeData";
 
 const getServerData = async (to: string) => {
-  let res = await fetch(`/data/${to}`);
+  let res = await fetch(`/${PREFIX_LINK}/${to}`);
   return await res.json();
   // return {
   //   message: 'test page'
@@ -11,8 +11,8 @@ const getServerData = async (to: string) => {
 };
 
 type ContextType = {
-  activePage: Page;
-  setActivePage: (page: Page) => void;
+  activePage: RoutePage;
+  setActivePage: (page: RoutePage) => void;
 };
 
 export const AppRouteContext = createContext<ContextType>({} as any);

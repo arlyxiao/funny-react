@@ -1,13 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { hydrateRoot } from "react-dom/client";
 import { createElement, useState } from "react";
 import { AppRouteContext } from "./hooks/useLoaderData";
 import { routes } from "./routes";
-import { Page } from "@server-runtime/handleRouteData";
+import { RoutePage } from "mindoc-runtime/routeData";
 
 type Props = {
-  page: Page;
+  page: RoutePage;
 };
 
 export const App = ({ page }: Props) => {

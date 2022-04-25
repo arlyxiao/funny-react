@@ -1,12 +1,16 @@
 {
-  "name": "farseek",
+  "name": "mindoc-monorepo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "start": "ts-node server-runtime/entry.ts",
+    "start": "ts-node sample/server.entry.ts",
     "prepare": "husky install"
   },
+  "workspaces": [
+    "packages/mindoc-runtime"
+  ],
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },

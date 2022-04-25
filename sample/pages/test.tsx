@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "@src/components/Link";
+import { Link } from "@sample/components/Link";
 
 type Props = {
   message: string;

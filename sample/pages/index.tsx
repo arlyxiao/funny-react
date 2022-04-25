@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "@src/components/Link";
-import { useLoaderData } from "@src/hooks/useLoaderData";
+import { Link } from "@sample/components/Link";
+import { useLoaderData } from "@sample/hooks/useLoaderData";
 
 export const loader = async () => {
   const promise = new Promise((resolve, reject) => {

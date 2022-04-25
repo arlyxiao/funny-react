@@ -2,15 +2,18 @@ import fs from "fs";
 import path from "path";
 import { ViteDevServer } from "vite";
 
-export type Page = {
+export type RoutePage = {
   path: string;
   props: any;
   component: any;
 };
 
+export const PREFIX_LINK = "__link__";
+
 type Props = {
   url: string;
   vite: ViteDevServer;
+  entryPath: string;
 };
 
 type PageLoaderResult = {
@@ -20,15 +23,38 @@ type PageLoaderResult = {
   props: any;
 };
 
+interface ILoadModules {
+  vite: ViteDevServer;
+  entryPath: string;
+  url: string;
+}
+
 function urlToFilePath(url: string) {
   let lastCharacter = url[url.length - 1];
   if (lastCharacter === "/") return `${url}index.tsx`;
   return `${url}.tsx`;
 }
 
-export const handleRouteData = async ({
+async function loadModules({ vite, entryPath, url }: ILoadModules) {
+  const paths = entryPath.split("/");
+  const basic = `/${paths[paths.length - 1]}`;
+
+  const [{ default: Page, loader }, { App }] = await Promise.all([
+    vite.ssrLoadModule(`${basic}/pages${urlToFilePath(url)}`),
+    vite.ssrLoadModule(`${basic}/app.tsx`),
+  ]);
+
+  return {
+    App,
+    Page,
+    loader,
+  };
+}
+
+export const loadRouteData = async ({
   url,
   vite,
+  entryPath,
 }: Props): Promise<PageLoaderResult> => {
   // 1. Read index.html
   let template = fs.readFileSync(
@@ -44,10 +70,11 @@ export const handleRouteData = async ({
   //    your ESM source code to be usable in Node.js! There is no bundling
   //    required, and provides efficient invalidation similar to HMR.
 
-  const [{ default: Page, loader }, { App }] = await Promise.all([
-    vite.ssrLoadModule(`/src/pages${urlToFilePath(url)}`),
-    vite.ssrLoadModule(`/src/app.tsx`),
-  ]);
+  const { loader, Page, App } = await loadModules({
+    entryPath,
+    url,
+    vite,
+  });
 
   const props = loader ? await loader() : {};
 
