@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import { routes } from "@sample/routes";
-import { RoutePage, PREFIX_LINK } from "mindoc-runtime/routeData";
+import { PageContext, PREFIX_LINK } from "mindoc-runtime/routeData";
 
 const getServerData = async (to: string) => {
   let res = await fetch(`/${PREFIX_LINK}/${to}`);
@@ -11,8 +11,8 @@ const getServerData = async (to: string) => {
 };
 
 type ContextType = {
-  activePage: RoutePage;
-  setActivePage: (page: RoutePage) => void;
+  activePage: PageContext;
+  setActivePage: (page: PageContext) => void;
 };
 
 export const AppRouteContext = createContext<ContextType>({} as any);
@@ -23,9 +23,14 @@ export const useLoaderData = () => {
   return {
     props: activePage.props,
     navigate: async (to: string) => {
+      const route = routes.find((route) => route.path === to);
+      if (!route) {
+        return;
+      }
+
       let [props, { default: component }] = await Promise.all([
         getServerData(to),
-        routes.find((route) => route.path === to).getComponent(),
+        route.getComponent(),
       ]);
 
       setActivePage({ path: to, component, props });

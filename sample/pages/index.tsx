@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "@sample/components/Link";
 import { useLoaderData } from "@sample/hooks/useLoaderData";
 
@@ -17,13 +17,24 @@ export const loader = async () => {
 };
 
 const Home = () => {
+  const [count, setCount] = useState(0);
   const { props } = useLoaderData();
 
+  function handleClick() {
+    setCount((prev) => prev + 1);
+  }
+
   return (
-    <div onClick={() => console.log("hello")}>
-      {props.message}
-      <Link to="/test">Go to test</Link>
-    </div>
+    <>
+      <button type="button" onClick={handleClick}>
+        Click
+      </button>
+      <div onClick={() => console.log("hello")}>
+        {props.message}
+        <h2>{count}</h2>
+        <Link to="/test">Go to test</Link>
+      </div>
+    </>
   );
 };
 

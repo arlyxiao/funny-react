@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "start": "ts-node sample/server.entry.ts",
+    "prod": "vite build --ssr sample/server.entry.ts --outDir dist/server",
     "prepare": "husky install"
   },
   "workspaces": [

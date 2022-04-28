@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { ViteDevServer } from "vite";
 
-export type RoutePage = {
+export type PageContext = {
   path: string;
   props: any;
   component: any;

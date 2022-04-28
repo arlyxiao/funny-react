@@ -3,10 +3,10 @@ import { hydrateRoot } from "react-dom/client";
 import { createElement, useState } from "react";
 import { AppRouteContext } from "./hooks/useLoaderData";
 import { routes } from "./routes";
-import { RoutePage } from "mindoc-runtime/routeData";
+import { PageContext } from "mindoc-runtime/routeData";
 
 type Props = {
-  page: RoutePage;
+  page: PageContext;
 };
 
 export const App = ({ page }: Props) => {

@@ -1,7 +1,14 @@
 import express from "express";
+import { ReactChild } from "react";
 import { createServer as createViteServer } from "vite";
 import { handleNavigationRequest, handleRefreshRequest } from "./routes";
 import { PREFIX_LINK } from "./routeData";
+
+export interface AppContext {
+  props: any;
+  path: string;
+  component: ReactChild;
+}
 
 export interface CreateServerContext {
   entryPath: string;
